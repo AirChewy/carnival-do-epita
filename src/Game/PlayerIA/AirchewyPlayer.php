@@ -108,7 +108,7 @@ class AirchewyPlayer extends Player
             }
         }
 
-        $lastOpponentScore = $currentOpponentChoice;
+        $lastOpponentChoice = $currentOpponentChoice;
 
         $lastOpponentScore = $this->result->getLastScoreFor($this->opponentSide);
         $myLastScore = $this->result->getLastScoreFor($this->mySide);
