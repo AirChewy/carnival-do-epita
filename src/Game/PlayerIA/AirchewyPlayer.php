@@ -109,6 +109,7 @@ class AirchewyPlayer extends Player
         }
 
         $lastOpponentScore = $this->result->getLastScoreFor($this->opponentSide);
+        $myLastScore = $this->result->getLastScoreFor($this->mySide);
 
         if ($lastOpponentScore == 0) {
             switch ($currentOpponentChoice) {
@@ -126,16 +127,51 @@ class AirchewyPlayer extends Player
             }
         }
         else {
-            if ($this->opponentPaper > $this->opponentRock) {
-                if ($this->opponentRock > $this->opponentScissors)
-                    return $this->rockChoice();
-                else
-                    return $this->paperChoice();
+            if ($myCurrentChoice == 0) {
+                switch ($myCurrentChoice) {
+                    case "paper":
+                        return $this->paperChoice();
+                        break;
+
+                    case "rock":
+                        return $this->rockChoice();
+                        break;
+
+                    case "scissors":
+                        return $this->scissorsChoice();
+                        break;
+                }
             }
-            elseif ($this->opponentPaper > $this->opponentScissors)
-                return $this->scissorsChoice();
-            else
-                return $this->paperChoice();
+            else if ($myCurrentChoice == 1) {
+                switch ($myCurrentChoice) {
+                    case "paper":
+                        return $this->scissorsChoice();
+                        break;
+
+                    case "rock":
+                        return $this->paperChoice();
+                        break;
+
+                    case "scissors":
+                        return $this->rockChoice();
+                        break;
+                }
+            }
+            else {
+                switch ($myCurrentChoice) {
+                    case "paper":
+                        return $this->scissorsChoice();
+                        break;
+
+                    case "rock":
+                        return $this->paperChoice();
+                        break;
+
+                    case "scissors":
+                        return $this->rockChoice();
+                        break;
+                }
+            }
         }
 
 
