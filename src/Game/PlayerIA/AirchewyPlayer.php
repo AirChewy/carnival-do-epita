@@ -19,6 +19,7 @@ class AirchewyPlayer extends Player
     protected $myPaper = 0;
     protected $myRock = 0;
     protected $myScissors = 0;
+    protected $lastOpponentChoice = "";
 
     protected $opponentPaper = 0;
     protected $opponentRock = 0;
@@ -51,58 +52,47 @@ class AirchewyPlayer extends Player
         // -----------------------------
         //--------    -----------------------------------------------------
 
-    /*    $opponentChoices =  $this->result->getChoicesFor($this->opponentSide);
-        $paper = 0;
-        $rock = 0;
-        $scissor = 0;
-        foreach ($opponentChoices as $choice) {
-            if ($choice == 'paper')
-                $paper += 1;
-            elseif ($choice == 'scissors')
-                $scissor += 1;
-            elseif ($choice == 'rock')
-                $rock +=1;
+
+        $currentOpponentChoice = $this->result->getLastChoiceFor($this->opponentSide);
+        if ($currentOpponentChoice == $this->lastOpponentChoice) {
+            switch ($currentOpponentChoice) {
+                case "paper":
+                    return $this->rockChoice();
+                    break;
+
+                case "rock":
+                    return $this->scissorsChoice();
+                    break;
+
+                case "scissors":
+                    return $this->paperChoice();
+                    break;
+            }
+        }
+        switch ($currentOpponentChoice) {
+            case "paper":
+                $this->opponentPaper++;
+                break;
+
+            case "rock":
+                $this->opponentRock++;
+                break;
+
+            case "scissors":
+                $this->opponentScissors++;
+                break;
         }
 
-        if ($paper > $rock) {
-            if ($rock > $scissor)
+        if ($this->opponentPaper > $this->opponentRock) {
+            if ($this->opponentRock > $this->opponentScissors)
                 return $this->scissorsChoice();
             else
                 return $this->rockChoice();
         }
-        elseif ($paper > $scissor)
+        elseif ($this->opponentPaper > $this->opponentScissors)
             return $this->scissorsChoice();
         else
-            return $this->paperChoice();*/
-
-
-        $opponentChoices = $this->result->getChoicesFor($this->opponentSide);
-        $last_opponent_choice = "";
-        foreach ($opponentChoices as $choice) {
-            if ($choice == $last_opponent_choice) {
-                if ($choice == "paper")
-                    return $this->rockChoice();
-                elseif ($choice == "rock")
-                    return $this->scissorsChoice();
-                else
-                    return $this->paperChoice();
-            }
-            $last_opponent_choice = $choice;
-        }
-
-        switch ($last_opponent_choice) {
-            case "paper":
-                return $this->rockChoice();
-                break;
-
-            case "rock":
-                return $this->scissorsChoice();
-                break;
-
-            case "scissors":
-                return $this->paperChoice();
-                break;
-        }
+            return $this->paperChoice();
 
       /*  $myChoices =  $this->result->getChoicesFor($this->mySide);
         $paper = 0;
