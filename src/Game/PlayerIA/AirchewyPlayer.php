@@ -43,7 +43,7 @@ class AirchewyPlayer extends Player
         // -----------------------------
         //--------    -----------------------------------------------------
 
-        $opponentChoices =  $this->result->getChoicesFor($this->opponentSide);
+    /*    $opponentChoices =  $this->result->getChoicesFor($this->opponentSide);
         $paper = 0;
         $rock = 0;
         $scissor = 0;
@@ -63,6 +63,30 @@ class AirchewyPlayer extends Player
                 return $this->rockChoice();
         }
         elseif ($paper > $scissor)
+            return $this->scissorsChoice();
+        else
+            return $this->paperChoice();*/
+
+        $myChoices =  $this->result->getChoicesFor($this->opponentSide);
+        $paper = 0;
+        $rock = 0;
+        $scissor = 0;
+        foreach ($myChoices as $choice) {
+            if ($choice == 'paper')
+                $paper += 1;
+            elseif ($choice == 'scissor')
+                $scissor += 1;
+            elseif ($choice == 'rock')
+                $rock +=1;
+        }
+
+        if ($paper > $rock) {
+            if ($paper > $scissor)
+                return $this->rockChoice();
+            else
+                return $this->paperChoice();
+        }
+        elseif ($rock > $scissor)
             return $this->scissorsChoice();
         else
             return $this->paperChoice();
