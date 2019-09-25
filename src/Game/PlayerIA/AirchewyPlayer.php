@@ -82,6 +82,18 @@ class AirchewyPlayer extends Player
             $last_opponent_choice = $choice;
         }
 
+  /*      switch ($last_opponent_choice) {
+            case "paper":
+                return $this->rockChoice();
+                break;
+
+            case "rock":
+                return $this->scissorsChoice();
+                break;
+
+            case "scissors"
+        }*/
+
         $myChoices =  $this->result->getChoicesFor($this->mySide);
         $paper = 0;
         $rock = 0;
@@ -89,7 +101,7 @@ class AirchewyPlayer extends Player
         foreach ($myChoices as $choice) {
             if ($choice == 'paper')
                 $paper += 1;
-            elseif ($choice == 'scissor')
+            elseif ($choice == 'scissors')
                 $scissor += 1;
             elseif ($choice == 'rock')
                 $rock +=1;
@@ -105,6 +117,7 @@ class AirchewyPlayer extends Player
             return $this->scissorsChoice();
         else
             return $this->paperChoice();
+
     }
 
 };
