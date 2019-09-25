@@ -21,6 +21,8 @@ class AirchewyPlayer extends Player
     protected $myRock = 0;
     protected $myScissors = 0;
 
+    protected $isFirstRound = true;
+
     protected $lastOpponentChoice = "";
     protected $opponentPaper = 0;
     protected $opponentRock = 0;
@@ -57,21 +59,6 @@ class AirchewyPlayer extends Player
         $currentOpponentChoice = $this->result->getLastChoiceFor($this->opponentSide);
         $myCurrentChoice = $this->result->getLastChoiceFor($this->mySide);
 
-        if ($currentOpponentChoice == $this->lastOpponentChoice) {
-            switch ($currentOpponentChoice) {
-                case "paper":
-                    return $this->rockChoice();
-                    break;
-
-                case "rock":
-                    return $this->scissorsChoice();
-                    break;
-
-                case "scissors":
-                    return $this->paperChoice();
-                    break;
-            }
-        }
         switch ($currentOpponentChoice) {
             case "paper":
                 $this->opponentPaper++;
@@ -100,6 +87,27 @@ class AirchewyPlayer extends Player
                 break;
         }
 
+        if ($this->isFirstRound == true) {
+            $this->isFirstRound = false;
+            return $this->rockChoice();
+        }
+
+        if ($currentOpponentChoice == $this->lastOpponentChoice) {
+            switch ($currentOpponentChoice) {
+                case "paper":
+                    return $this->rockChoice();
+                    break;
+
+                case "rock":
+                    return $this->scissorsChoice();
+                    break;
+
+                case "scissors":
+                    return $this->paperChoice();
+                    break;
+            }
+        }
+
         $lastOpponentScore = $this->result->getLastScoreFor($this->opponentSide);
 
         if ($lastOpponentScore == 0) {
@@ -117,47 +125,18 @@ class AirchewyPlayer extends Player
                     break;
             }
         }
-        elseif ($lastOpponentScore == 1) {
-            switch ($currentOpponentChoice) {
-                case "paper":
-                    return $this->scissorsChoice();
-                    break;
-
-                case "rock":
-                    return $this->paperChoice();
-                    break;
-
-                case "scissors":
-                    return $this->rockChoice();
-                    break;
-            }
-        }
         else {
-            switch ($currentOpponentChoice) {
-                case "paper":
-                    return $this->scissorsChoice();
-                    break;
-
-                case "rock":
-                    return $this->paperChoice();
-                    break;
-
-                case "scissors":
+            if ($this->opponentPaper > $this->opponentRock) {
+                if ($this->opponentRock > $this->opponentScissors)
                     return $this->rockChoice();
-                    break;
+                else
+                    return $this->paperChoice();
             }
-        }
-
-      /*  if ($this->opponentPaper > $this->opponentRock) {
-            if ($this->opponentRock > $this->opponentScissors)
+            elseif ($this->opponentPaper > $this->opponentScissors)
                 return $this->scissorsChoice();
             else
-                return $this->rockChoice();
+                return $this->paperChoice();
         }
-        elseif ($this->opponentPaper > $this->opponentScissors)
-            return $this->scissorsChoice();
-        else
-            return $this->paperChoice();*/
 
 
 
