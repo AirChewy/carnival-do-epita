@@ -56,7 +56,6 @@ class AirchewyPlayer extends Player
         //--------    -----------------------------------------------------
 
 
-        $currentOpponentChoice = $this->result->getLastChoiceFor($this->opponentSide);
         $myCurrentChoice = $this->result->getLastChoiceFor($this->mySide);
 
         switch ($currentOpponentChoice) {
@@ -107,6 +106,8 @@ class AirchewyPlayer extends Player
                     break;
             }
         }
+
+        $currentOpponentChoice = $this->result->getLastChoiceFor($this->opponentSide);
 
         $lastOpponentScore = $this->result->getLastScoreFor($this->opponentSide);
         $myLastScore = $this->result->getLastScoreFor($this->mySide);
