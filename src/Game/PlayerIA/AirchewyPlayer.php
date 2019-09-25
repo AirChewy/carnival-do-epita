@@ -68,6 +68,19 @@ class AirchewyPlayer extends Player
             return $this->paperChoice();*/
 
 
+        $opponentChoices = $this->result->getChoicesFor($this->opponentSide);
+        $last_opponent_choice = "";
+        foreach ($opponentChoices as $choice) {
+            if ($choice == $last_opponent_choice) {
+                if ($choice == "paper")
+                    return $this->rockChoice();
+                elseif ($choice == "rock")
+                    return $this->scissorsChoice();
+                else
+                    return $this->paperChoice();
+            }
+            $last_opponent_choice = $choice;
+        }
 
         $myChoices =  $this->result->getChoicesFor($this->mySide);
         $paper = 0;
